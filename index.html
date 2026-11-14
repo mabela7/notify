@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#090914" />
+  <title>NotifyLab</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><div class="brand-icon">N</div><div><strong>NotifyLab</strong><span>FCM CONTROL CENTER</span></div></div>
+      <div class="live"><i></i> ANDROID TEST</div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow">PUSH NOTIFICATION LABORATORY</div>
+        <h1>Make some<br><span>noise.</span></h1>
+        <p>Connect this device to Firebase Cloud Messaging and verify real push delivery.</p>
+        <div class="device-row"><div class="device-icon">◈</div><div><b id="deviceStatus">Waiting for device</b><small id="permissionStatus">Notification permission not checked</small></div><span class="status-pill" id="statusPill">OFFLINE</span></div>
+      </section>
+
+      <section class="panel token-panel">
+        <div class="section-heading"><div><span class="number">01</span><h2>Device registration</h2></div><span class="tag">FCM TOKEN</span></div>
+        <p class="muted">Request permission, register this Android device, and retrieve its unique FCM token.</p>
+        <button class="primary" id="connectBtn"><span>↗</span> Connect device</button>
+        <div class="token-label"><span>YOUR DEVICE TOKEN</span><span id="tokenState">NOT REGISTERED</span></div>
+        <div class="token-box"><code id="tokenText">Your FCM token will appear here.</code><button id="copyBtn" aria-label="Copy token">COPY</button></div>
+        <div class="button-row"><button class="secondary" id="refreshBtn">Refresh token</button><button class="secondary" id="clearBtn">Clear log</button></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading"><div><span class="number">02</span><h2>Notification activity</h2></div><span class="tag">LIVE LOG</span></div>
+        <p class="muted">Messages received while NotifyLab is open will appear here. Background notifications are displayed by Android.</p>
+        <div id="emptyState" class="empty"><div class="empty-bell">♧</div><b>No notifications yet</b><span>Send a test message from Firebase Console.</span></div>
+        <div id="logList" class="log-list"></div>
+      </section>
+      <section class="tip"><b>How to test</b><p>After connecting, copy the token. In Firebase Console open Messaging, create a notification campaign, choose Send test message, paste the token, then send while this app is in the background.</p></section>
+    </main>
+    <footer>NOTIFYLAB <span>•</span> BUILT FOR TESTING</footer>
+    <div id="toast" class="toast" role="status"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
