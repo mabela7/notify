@@ -1,3 +1,4 @@
+
 name: Build NotifyLab APK
 
 on:
@@ -12,6 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,6 +31,10 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 12266719
+          accept-android-sdk-licenses: true
+          packages: platform-tools
 
       - name: Install dependencies
         run: npm install
@@ -39,21 +45,21 @@ jobs:
       - name: Generate Android project
         run: npx cap add android
 
-      - name: Add Firebase Android configuration
+      - name: Add Firebase configuration
         run: |
-          test -f google-services.json || (echo 'Missing google-services.json in repository root' && exit 1)
+          test -f google-services.json
           cp google-services.json android/app/google-services.json
 
-      - name: Configure Firebase and notification icon
+      - name: Configure Android
         run: node scripts/configure-android.mjs
 
       - name: Generate launcher icons
         run: npx capacitor-assets generate --android
 
-      - name: Sync Capacitor plugins
+      - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Build debug APK
+      - name: Build APK
         working-directory: android
         run: ./gradlew assembleDebug --no-daemon --stacktrace
 
@@ -64,4 +70,3 @@ jobs:
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
-          
